@@ -1,0 +1,23 @@
+{
+    "Hospitals":[
+    {
+        "hospital": "Hospital1",
+        "admin": "admin1",
+        "users":
+        {
+            "Ellie": "Ellie1",
+            "Dina": "Dina1"
+        }
+    },
+    {
+        "hospital": "Hospital2",
+        "admin": "admin2",
+        "users":
+        {
+            "Joel": "Joel2",
+            "Tommy": "Tommy2"
+
+        }
+    }
+]
+}

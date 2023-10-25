@@ -1,0 +1,16 @@
+Mandatory--
+1. Check PurgePrivateData
+3. Check how to add parameters to npm run start 
+    (found a link for this, try sending basic args in different instances and display on Login page)
+4. Implement middle-end
+5. send/recv data to/from middle-end
+6. Add shell scripts for automation of launch and kill front-end/middle-end
+
+Optional--
+1. add list of organizations in InitLedger
+
+App--
+When starting, ask for Organization name and User ID. If userID == 'admin', enroll as admin, else check if admin exists or not and enroll as user
+In enroll, set the attributes correctly to enroll the users with their user ID
+For admins, the clientID is admin_<org>
+For patients, the clientID is patient_<username>_<org>
