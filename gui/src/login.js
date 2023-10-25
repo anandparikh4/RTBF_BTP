@@ -44,6 +44,26 @@ const Login = (props) => {
     }
   }
 
+  async function handleTrial(e){
+    e.preventDefault()
+
+    const obj = {
+      message: "Frontend Connected"
+    }
+
+    fetch("http://localhost:" + process.env.REACT_APP_BACKEND_PORT,{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(obj)
+    })
+    .then(res => {
+      return res.json()
+    })
+    .then((data)=>{
+      console.log(data["message"])
+    })
+  }
+
   return (
     <div className="Login">
       <h2>Welcome To RTBF</h2>
@@ -61,7 +81,8 @@ const Login = (props) => {
           ))}
         </select><br/>
         <button>Login</button>
-      </form>
+      </form><br/>
+      <button onClick={handleTrial}>Trial</button>
     </div>
   );
 }
