@@ -14,3 +14,11 @@ When starting, ask for Organization name and User ID. If userID == 'admin', enro
 In enroll, set the attributes correctly to enroll the users with their user ID
 For admins, the clientID is admin_<org>
 For patients, the clientID is patient_<username>_<org>
+
+params sent to functions from server:
+Structure in the required object format before sending to the functions
+contract
+org     // other org (target org)
+
+Check which parameters are sent from the frontend and what is required
+in backend to setup a simple flow

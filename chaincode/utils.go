@@ -77,10 +77,7 @@ func verify_Permission(ctx contractapi.TransactionContextInterface, func_name st
 	if err != nil {
 		return false, fmt.Errorf("<verify_Permission> get attribute value failed: %v", err)
 	}
-	if !exists {
-		return false, fmt.Errorf("<verify_Permission> unrecognized submitter does not have (ClientID) attribute set")
-	}
-	if strings.HasPrefix(attr, "admin") {
+	if !exists { // admin
 		permission := find_List(admin_permissions, func_name)
 		return permission, nil
 	} else if strings.HasPrefix(attr, "patient") {
@@ -139,11 +136,7 @@ func verify_Access_Control(ctx contractapi.TransactionContextInterface, key stri
 	if err != nil {
 		return false, fmt.Errorf("<verify_Access_Control> get attribute value failed: %v", err)
 	}
-	if !exists {
-		return false, fmt.Errorf("<verify_Access_Control> unrecognied submitter does not have (ClientID) attribute set")
-	}
-	attrs := strings.Split(attr, "_")
-	if attrs[0] == "admin" { // if the user is an admin, then either the hospital hash must match, or the access control must be available
+	if !exists { // if the user is an admin, then either the hospital hash must match, or the access control must be available
 		if string(h_hospital[:]) == string(acl.H_Hospital[:]) {
 			return true, nil
 		} else {
@@ -158,12 +151,15 @@ func verify_Access_Control(ctx contractapi.TransactionContextInterface, key stri
 			}
 			return false, fmt.Errorf("<verify_Access_Control> invalid manner of access control %v is none of r/w/rw", manner)
 		}
-	} else if attrs[0] == "patient" { // if the user is a patient, then both the hospital and patient hashes must match
-		h_patient := get_String_Hash(attrs[1])
-		if string(h_hospital[:]) == string(acl.H_Hospital) && string(h_patient[:]) == string(acl.H_Patient) {
-			return true, nil
+	} else {
+		attrs := strings.Split(attr, "_")
+		if attrs[0] == "patient" { // if the user is a patient, then both the hospital and patient hashes must match
+			h_patient := get_String_Hash(attrs[1])
+			if string(h_hospital[:]) == string(acl.H_Hospital) && string(h_patient[:]) == string(acl.H_Patient) {
+				return true, nil
+			}
+			return false, nil
 		}
-		return false, nil
 	}
 	return false, fmt.Errorf("<verify_Access_Control> unrecognized submitter has invalid format of ClientID")
 }
