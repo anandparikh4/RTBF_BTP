@@ -14,4 +14,6 @@ method
 patient, test, other, manner, result, allergies, blood
 
 App:
+Do the login stuff
 From all functions, always return a JSON object to the main app.post
+Display the formatted response instead of just logging it into the console
