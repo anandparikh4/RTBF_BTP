@@ -74,7 +74,7 @@ async function registerAndEnrollUser(caClient, wallet, orgMspId, userId, affilia
 			affiliation: affiliation,					// if affiliation is specified by client, the affiliation value must be configured in CA
 			enrollmentID: userId,
 			role: 'client',
-            attrs: [{"name":"ClientID", "value":"patient_"+userId}]       // set attribute
+            attrs: [{"name":"ClientID", "value":"patient_" + userId + "_" + orgMspId}]       // set attribute
 		}, adminUser)
 		const enrollment = await caClient.enroll({
 			enrollmentID: userId,

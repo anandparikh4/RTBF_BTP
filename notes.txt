@@ -1,24 +1,14 @@
 Mandatory--
 1. Check PurgePrivateData
-3. Check how to add parameters to npm run start 
-    (found a link for this, try sending basic args in different instances and display on Login page)
-4. Implement middle-end
-5. send/recv data to/from middle-end
-6. Add shell scripts for automation of launch and kill front-end/middle-end
+2. Implement middle-end
+3. send/recv data to/from middle-end
+4. Simple logging the outputs to the terminal for now
+5. Add shell scripts for automation of launch and kill front-end/middle-end
 
-Optional--
-1. add list of organizations in InitLedger
+For patients, the clientID is patient_<username>_<OrgMSP>
 
-App--
-When starting, ask for Organization name and User ID. If userID == 'admin', enroll as admin, else check if admin exists or not and enroll as user
-In enroll, set the attributes correctly to enroll the users with their user ID
-For admins, the clientID is admin_<org>
-For patients, the clientID is patient_<username>_<org>
-
-params sent to functions from server:
-Structure in the required object format before sending to the functions
-contract
-org     // other org (target org)
-
-Check which parameters are sent from the frontend and what is required
-in backend to setup a simple flow
+params keys:
+source_org,destination_org      (have "Org" with first letter capital)
+username,hospital
+method
+patient, test, other, manner, result, allergies, blood
