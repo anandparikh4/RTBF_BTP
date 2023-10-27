@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const Destruct = (props) => {
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [pending,setPending] = useState(false)
@@ -8,9 +9,16 @@ const Destruct = (props) => {
   const handleDestruct = (e) => {
     e.preventDefault()
     setPending(true)
-    
-    // destruct acl
-    setPending(false)
+    const request = {
+      method: "Destruct",
+      patient: patient,
+      test: test
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

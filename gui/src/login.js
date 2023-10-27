@@ -8,10 +8,12 @@ const Login = (props) => {
   const hospital = props.hospital
   const setHospital = props.setHospital
   const setUsertype = props.setUsertype
+  const makeRequest = props.makeRequest
   const history = useHistory()
   const [password,setPassword] = useState('')
+  const [pending,setPending] = useState(false)
 
-  const handleLogin = (e) => {
+  async function handleLogin(e){
     e.preventDefault()
     var found = false
     var valid = false
@@ -40,39 +42,31 @@ const Login = (props) => {
     if(!found) alert("Invalid username")
     else if (!valid) alert("Invalid password")
     else{
-      history.push('/profile')
+      setPending(true)
+      const request = {
+        method: "Login",
+      }
+      makeRequest(request)
+      .then(response => {
+        console.log(response)
+        history.push('/profile')
+        setPending(false)
+      })
     }
-  }
-
-  async function handleTrial(e){
-    e.preventDefault()
-
-    const obj = {
-      message: "Frontend Connected"
-    }
-
-    fetch("http://localhost:" + process.env.REACT_APP_BACKEND_PORT,{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(obj)
-    })
-    .then(res => {
-      return res.json()
-    })
-    .then((data)=>{
-      console.log(data["message"])
-    })
   }
 
   return (
     <div className="Login">
       <h2>Welcome To RTBF</h2>
       {/* <h3>{process.env.REACT_APP_BACKEND_PORT}</h3> */}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={async(e) => {await handleLogin(e)}}>
+
         <label>Username</label>
         <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} required></input><br/>
+        
         <label>Password</label>
         <input type="text" value={password} onChange={(e)=>setPassword(e.target.value)} required></input><br/>
+        
         <label>Hospital</label>
         <select value={hospital} onChange={(e)=>setHospital(e.target.value)} required>
           <option value="Select">Select</option>
@@ -80,9 +74,11 @@ const Login = (props) => {
             <option value={h.hospital} key={h.hospital}>{h.hospital}</option>
           ))}
         </select><br/>
-        <button>Login</button>
+        
+        {!pending && <button>Login</button>}
+        {pending && <button disabled>Please Wait...</button>}
+      
       </form><br/>
-      <button onClick={handleTrial}>Trial</button>
     </div>
   );
 }

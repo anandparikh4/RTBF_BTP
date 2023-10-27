@@ -1,8 +1,18 @@
 import { useState } from "react"
 
+/* 
+      const request = {
+        method: "Login",
+      }
+      makeRequest(request)
+      .then(response => {
+        // console.log(response)
+      })
+*/
+
 const Write = (props) => {
   const hospitals = props.hospitals
-
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [other,setOther] = useState('Select')
@@ -17,9 +27,20 @@ const Write = (props) => {
     else if(result == "Select") alert("Please select a result")
     if(other == "Select" || result == "Select") return
     setPending(true)
-
-    // read private data
-    setPending(false)
+    const request = {
+      method: "Write",
+      other: other,
+      patient: patient,
+      test: test,
+      result: result,
+      allergies: allergies,
+      blood: blood
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

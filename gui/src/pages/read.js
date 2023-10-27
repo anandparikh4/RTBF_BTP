@@ -2,22 +2,30 @@ import { useState } from "react"
 
 const Read = (props) => {
   const hospitals = props.hospitals
-
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [other,setOther] = useState('Select')
   const [pending,setPending] = useState(false)
 
-  const handleRead= (e) => {
+  const handleRead = (e) => {
     e.preventDefault()
-    setPending(true)
     if(other == "Select"){
       alert("Please select a hospital")
       return
     }
-
-    // read private data
-    setPending(false)
+    setPending(true)
+    const request = {
+      method: "Read",
+      other: other,
+      patient: patient,
+      test: test
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

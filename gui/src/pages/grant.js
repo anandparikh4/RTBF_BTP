@@ -2,6 +2,7 @@ import { useState } from "react"
 
 const Grant = (props) => {
   const hospitals = props.hospitals
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [other,setOther] = useState('Select')
@@ -10,13 +11,22 @@ const Grant = (props) => {
 
   const handleGrant = (e) => {
     e.preventDefault()
-    setPending(true)
     if(other == "Select") alert("Please select a hospital")
     else if(manner == "Select") alert("Please select access control type")
     if(other == "Select" || manner == "Select") return;
-
-    // grant access control
-    setPending(false)
+    setPending(true)
+    const request = {
+      method: "Grant",
+      patient: patient,
+      test: test,
+      other: other,
+      manner: manner
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

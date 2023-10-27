@@ -12,3 +12,6 @@ source_org,destination_org      (have "Org" with first letter capital)
 username,hospital
 method
 patient, test, other, manner, result, allergies, blood
+
+App:
+From all functions, always return a JSON object to the main app.post

@@ -2,21 +2,31 @@ import { useState } from "react"
 
 const Revoke = (props) => {
   const hospitals = props.hospitals
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [other,setOther] = useState('Select')
   const [manner,setManner] = useState('Select')
   const [pending,setPending] = useState('')
-
+  
   const handleRevoke = (e) => {
     e.preventDefault()
-    setPending(true)
     if(other == "Select") alert("Please select a hospital")
     else if(manner == "Select") alert("Please select access control type")
     if(other == "Select" || manner == "Select") return;
-
-    // revoke access control
-    setPending(false)
+    setPending(true)
+    const request = {
+      method: "Revoke",
+      patient: patient,
+      test: test,
+      other: other,
+      manner: manner
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

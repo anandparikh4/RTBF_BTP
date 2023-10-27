@@ -14,7 +14,8 @@ const Profile = (props) => {
   const username = props.username
   const hospital = props.hospital
   const hospitals = props.hospitals
-  
+  const makeRequest = props.makeRequest
+
   return(
     <div className="Profile">
       <Router>
@@ -28,31 +29,31 @@ const Profile = (props) => {
             </Route>
 
             <Route exact path="/profile/construct">
-              <Construct usertype={usertype} username={username} hospital={hospital}/>
+              <Construct makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital}/>
             </Route>
 
             <Route exact path="/profile/destruct">
-              <Destruct usertype={usertype} username={username} hospital={hospital}/>
+              <Destruct makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital}/>
             </Route>
 
             <Route exact path="/profile/grant">
-              <Grant usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
+              <Grant makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
             </Route>
 
             <Route exact path="/profile/revoke">
-              <Revoke usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
+              <Revoke makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
             </Route>
 
             <Route exact path="/profile/read">
-              <Read usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
+              <Read makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
             </Route>
 
             <Route exact path="/profile/write">
-              <Write usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
+              <Write makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>
             </Route>
 
             <Route exact path="/profile/purge">
-              <Purge usertype={usertype} username={username} hospital={hospital}/>
+              <Purge makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital}/>
             </Route>
 
           </Switch>

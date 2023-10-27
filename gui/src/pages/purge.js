@@ -1,15 +1,23 @@
 import { useState } from "react"
 
 const Purge = (props) => {
+  const makeRequest = props.makeRequest
   const [test,setTest] = useState('')
   const [pending,setPending] = useState(false)
 
   const handlePurge = (e) => {
     e.preventDefault()
     setPending(true)
-    
-    // purge private data
-    setPending(false)
+    const request = {
+      method: "Purge",
+      patient: props.username,
+      test: test
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

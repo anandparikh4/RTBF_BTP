@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const Construct = (props) => {
+  const makeRequest = props.makeRequest
   const [patient,setPatient] = useState('')
   const [test,setTest] = useState('')
   const [pending,setPending] = useState(false)
@@ -8,9 +9,16 @@ const Construct = (props) => {
   const handleConstruct = (e) => {
     e.preventDefault()
     setPending(true)
-    
-    // construct acl
-    setPending(false)
+    const request = {
+      method: "Construct",
+      patient: patient,
+      test: test
+    }
+    makeRequest(request)
+    .then(response => {
+      console.log(response)
+      setPending(false)
+    })
   }
 
   return (  

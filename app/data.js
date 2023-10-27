@@ -17,7 +17,7 @@ export async function Read_Private_Data(contract , params){
 
 export async function Write_Private_Data(contract , params){
     const args = {
-        hospital: params["hospital"],
+        hospital: params["other"],
         patient: params["patient"],
         test: params["test"],
         result: params["result"],

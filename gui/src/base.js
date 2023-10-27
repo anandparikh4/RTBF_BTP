@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Login from './login.js'
@@ -11,6 +12,14 @@ const Base = () => {
   const [username, setUsername] = useState('')
   const [usertype, setUsertype] = useState(null)
   const [hospital, setHospital] = useState('Select')
+
+  async function makeRequest(params){
+    params["username"] = username
+    params["hospital"] = hospital
+    const promise = axios.post("http://localhost:" + process.env.REACT_APP_BACKEND_PORT , params)
+    const dataPromise = promise.then((response) => response.data)
+    return dataPromise
+  }
 
   useEffect(() => {
     fetch(databaseEndpoint)
@@ -28,11 +37,11 @@ const Base = () => {
         <Switch>
 
           <Route path="/profile">
-            {usertype && <Profile usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>}
+            {usertype && <Profile makeRequest={makeRequest} usertype={usertype} username={username} hospital={hospital} hospitals={hospitals}/>}
           </Route>
 
           <Route exact path="/">
-            {hospitals && <Login hospitals={hospitals} username={username} setUsername={setUsername} hospital={hospital} setHospital={setHospital} setUsertype={setUsertype} />}
+            {hospitals && <Login makeRequest={makeRequest} hospitals={hospitals} username={username} setUsername={setUsername} hospital={hospital} setHospital={setHospital} setUsertype={setUsertype} />}
           </Route>
 
         </Switch>
