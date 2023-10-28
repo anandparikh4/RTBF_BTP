@@ -13,7 +13,7 @@ const Read = (props) => {
 
   const handleRead = (e) => {
     e.preventDefault()
-    if(other == "Select"){
+    if(other === "Select"){
       alert("Please select a hospital")
       return
     }
@@ -27,7 +27,7 @@ const Read = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
-      if(response["error"] != "") alert(response["error"])
+      if(response["error"] !== "") alert(response["error"])
       else{
         setResult(response["Result"])
         setAllergies(response["Allergies"])
@@ -60,7 +60,7 @@ const Read = (props) => {
         {!pending && <button>Read Private Data</button>}
         {pending && <button disabled>Please Wait...</button>}
         
-      </form><br/><br/>
+      </form>
 
       <p>Result: {result}</p>
 

@@ -17,23 +17,23 @@ const Login = (props) => {
     e.preventDefault()
     var found = false
     var valid = false
-    if(hospital == "Select"){
+    if(hospital === "Select"){
       alert("Please select a Hospital")
       return
     }
-    if(username == "admin") setUsertype("admin")
+    if(username === "admin") setUsertype("admin")
     else setUsertype("patient")
     for(var i=0;i<hospitals.length;i++){
-      if(hospitals[i].hospital != hospital) continue
-      if(username == "admin"){
+      if(hospitals[i].hospital !== hospital) continue
+      if(username === "admin"){
         found = true
-        if(hospitals[i].admin == password) valid = true
+        if(hospitals[i].admin === password) valid = true
       }
       if(found) break
       for(var u in hospitals[i].users){
-        if(u == username){
+        if(u === username){
           found = true
-          if(hospitals[i].users[u] == password) valid = true
+          if(hospitals[i].users[u] === password) valid = true
           break
         }
       }

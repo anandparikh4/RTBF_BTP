@@ -11,9 +11,9 @@ const Grant = (props) => {
 
   const handleGrant = (e) => {
     e.preventDefault()
-    if(other == "Select") alert("Please select a hospital")
-    else if(manner == "Select") alert("Please select access control type")
-    if(other == "Select" || manner == "Select") return;
+    if(other === "Select") alert("Please select a hospital")
+    else if(manner === "Select") alert("Please select access control type")
+    if(other === "Select" || manner === "Select") return;
     setPending(true)
     const request = {
       method: "Grant",
@@ -25,7 +25,7 @@ const Grant = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
-      if(response["error"] != "") alert(response["error"])
+      if(response["error"] !== "") alert(response["error"])
       setPending(false)
     })
   }

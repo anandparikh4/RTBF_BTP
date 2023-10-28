@@ -17,7 +17,7 @@ const Construct = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
-      if(response["error"] != "") alert(response["error"])
+      if(response["error"] !== "") alert(response["error"])
       setPending(false)
     })
   }
