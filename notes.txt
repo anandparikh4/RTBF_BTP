@@ -13,6 +13,5 @@ method
 patient, test, other, manner, result, allergies, blood
 
 App:
-Catch the errors in the app and send to react frontend
-From all functions, always return a JSON object to the main app.post
+Alert on errors
 Display the formatted response instead of just logging it into the console

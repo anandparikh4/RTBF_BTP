@@ -17,21 +17,22 @@ const Construct = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
+      if(response["error"] != "") alert(response["error"])
       setPending(false)
     })
   }
 
   return (  
     <div className = "Construct">
-      <p>Construct Access Control List</p><br/>
+      <p>Construct Access Control List</p>
 
       <form onSubmit={handleConstruct}>
 
         <label>Patient</label>
-        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/>
+        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/><br/>
 
         <label>Test</label>
-        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/>
+        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/><br/>
 
         {!pending && <button>Construct Access Control List</button>}
         {pending && <button disabled>Please Wait...</button>}

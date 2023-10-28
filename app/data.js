@@ -15,7 +15,13 @@ export async function Read_Private_Data(contract , params){
         tx.setEndorsingOrganizations(params["destination_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
+        result = JSON.parse(result.toString())
+        response["Hospital"] = result["Hospital"]
+        response["Patient"] = result["Patient"]
+        response["Test"] = result["Test"]
+        response["Result"] = result["Result"]
+        response["Allergies"] = result["Allergies"]
+        response["Blood"] = result["Blood"]
     }
     catch(error){
         response["error"] = error.message
@@ -44,7 +50,6 @@ export async function Write_Private_Data(contract , params){
         tx.setEndorsingOrganizations(params["destination_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message
@@ -69,7 +74,6 @@ export async function Destroy_Private_Data(contract , params){
         tx.setEndorsingOrganizations(params["source_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message

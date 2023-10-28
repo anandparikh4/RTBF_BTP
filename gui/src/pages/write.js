@@ -1,15 +1,5 @@
 import { useState } from "react"
 
-/* 
-      const request = {
-        method: "Login",
-      }
-      makeRequest(request)
-      .then(response => {
-        // console.log(response)
-      })
-*/
-
 const Write = (props) => {
   const hospitals = props.hospitals
   const makeRequest = props.makeRequest
@@ -39,21 +29,22 @@ const Write = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
+      if(response["error"] != "") alert(response["error"])
       setPending(false)
     })
   }
 
   return (  
     <div className = "Write">
-      <p>Write Private Data</p><br/>
+      <p>Write Private Data</p>
 
       <form onSubmit={handleWrite}>
 
         <label>Patient</label>
-        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/>
+        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/><br/>
 
         <label>Test</label>
-        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/>
+        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/><br/>
 
         <label>Hospital</label>
         <select value={other} onChange={(e)=>setOther(e.target.value)} required>
@@ -61,20 +52,20 @@ const Write = (props) => {
           {hospitals.map((h) => (
             <option value={h.hospital} key={h.hospital}>{h.hospital}</option>
           ))}
-        </select><br/>
+        </select><br/><br/>
 
         <label>Result</label>
         <select value={result} onChange={(e)=>setResult(e.target.value)} required>
           <option value="Select">Select</option>
           <option value="Positive">Positive</option>
           <option value="Negative">Negative</option>
-        </select><br/>
+        </select><br/><br/>
 
         <label>Allergies</label>
-        <textarea value={allergies} onChange={(e)=>setAllergies(e.target.other)} required /><br/>
+        <textarea value={allergies} onChange={(e)=>setAllergies(e.target.value)} required /><br/><br/>
 
         <label>Blood Group</label>
-        <input type="text" value={blood} onChange={(e)=>setBlood(e.target.value)} required /><br/>
+        <input type="text" value={blood} onChange={(e)=>setBlood(e.target.value)} required /><br/><br/>
 
         {!pending && <button>Write Private Data</button>}
         {pending && <button disabled>Please Wait...</button>}

@@ -16,18 +16,19 @@ const Purge = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
+      if(response["error"] != "") alert(response["error"])
       setPending(false)
     })
   }
 
   return (  
     <div className = "Purge">
-      <p>Purge Private Data</p><br/>
+      <p>Purge Private Data</p>
 
       <form onSubmit={handlePurge}>
 
         <label>Test</label>
-        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/>
+        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/><br/>
 
         {!pending && <button>Purge Private Data</button>}
         {pending && <button disabled>Please Wait...</button>}

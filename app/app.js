@@ -25,7 +25,7 @@ function init(params){
     if(params.hasOwnProperty("other")){
         params["destination_org"] = params["other"].replace("Hospital" , "Org")
     }
-    console.log(params)
+    console.log("Request: " , params)
     return params
 }
 
@@ -95,6 +95,7 @@ app.post("/", async function (req,res){
         }
     }
     
+    console.log("Response: " , response)
     res.send(JSON.stringify(response))
 })
 

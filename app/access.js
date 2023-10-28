@@ -14,7 +14,6 @@ export async function Construct_ACL(contract , params){
         tx.setEndorsingOrganizations(params["source_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message
@@ -39,7 +38,6 @@ export async function Destruct_ACL(contract , params){
         tx.setEndorsingOrganizations(params["source_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message
@@ -66,7 +64,6 @@ export async function Grant_Access_Control(contract , params){
         tx.setEndorsingOrganizations(params["source_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message
@@ -93,7 +90,6 @@ export async function Revoke_Access_Control(contract , params){
         tx.setEndorsingOrganizations(params["source_org"]+"MSP")
         tx.setTransient(transientData)
         var result = await tx.submit()
-        console.log(result.toString())
     }
     catch(error){
         response["error"] = error.message

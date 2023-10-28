@@ -17,21 +17,22 @@ const Destruct = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
+      if(response["error"] != "") alert(response["error"])
       setPending(false)
     })
   }
 
   return (  
     <div className = "Destruct">
-      <p>Destruct Access Control List</p><br/>
+      <p>Destruct Access Control List</p>
 
       <form onSubmit={handleDestruct}>
 
         <label>Patient</label>
-        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/>
+        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/><br/>
 
         <label>Test</label>
-        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/>
+        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required /><br/><br/>
 
         {!pending && <button>Destruct Access Control List</button>}
         {pending && <button disabled>Please Wait...</button>}

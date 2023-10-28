@@ -25,6 +25,7 @@ const Revoke = (props) => {
     makeRequest(request)
     .then(response => {
       console.log(response)
+      if(response["error"] != "") alert(response["error"])
       setPending(false)
     })
   }
@@ -36,10 +37,10 @@ const Revoke = (props) => {
       <form onSubmit={handleRevoke}>
 
         <label>Patient</label>
-        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/>
+        <input type="text" value={patient} onChange={(e)=>setPatient(e.target.value)} required /><br/><br/>
 
         <label>Test</label>
-        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required/><br/>
+        <input type="text" value={test} onChange={(e)=>setTest(e.target.value)} required/><br/><br/>
 
         <label>Hospital</label>
         <select value={other} onChange={(e)=>setOther(e.target.value)} required>
@@ -47,7 +48,7 @@ const Revoke = (props) => {
           {hospitals.map((h) => (
             <option value={h.hospital} key={h.hospital}>{h.hospital}</option>
           ))}
-        </select><br/>
+        </select><br/><br/>
 
         <label>Access Type</label>
         <select value={manner} onChange={(e)=>setManner(e.target.value)} required>
@@ -55,7 +56,7 @@ const Revoke = (props) => {
           <option value="r" key="Read">Read</option>
           <option value="w" key="Write">Write</option>
           <option value="rw" key="Read/Write">Read/Write</option>
-        </select><br/>
+        </select><br/><br/>
 
         {!pending && <button>Revoke Access Control</button>}
         {pending && <button>Please Wait...</button>}
