@@ -7,7 +7,7 @@ export async function Construct_ACL(contract , params){
         key: Buffer.from(JSON.stringify(args))
     }
 
-    var tx = await contract.createTransaction("Consruct_ACL")
+    var tx = await contract.createTransaction("Construct_ACL")
     tx.setEndorsingOrganizations(params["source_org"]+"MSP")
     tx.setTransient(transientData)
     var result = await tx.submit()
@@ -30,7 +30,7 @@ export async function Destruct_ACL(contract , params){
     console.log(result.toString())
 }
 
-export async function Grant_Access_Control(contract){
+export async function Grant_Access_Control(contract , params){
     const args = {
         patient: params["patient"],
         test: params["test"],

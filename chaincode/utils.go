@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/md5"
 	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -53,13 +55,10 @@ func find_List(list []string, element string) bool {
 	return found
 }
 
-// convert to json and return SHA256 hash in byte format
-func get_String_Hash(s string) []byte {
-	sJSON, _ := json.Marshal(s)
-	hash := sha256.New()
-	hash.Write(sJSON)
-	h := hash.Sum(nil)
-	return h
+func get_String_Hash(text string) string {
+	hasher := md5.New()
+	hasher.Write([]byte(text))
+	return hex.EncodeToString(hasher.Sum(nil))
 }
 
 func get_Byte_Hash(b []byte) []byte {
@@ -72,7 +71,7 @@ func get_Byte_Hash(b []byte) []byte {
 // check if the submitter is allowed to call a certain function
 func verify_Permission(ctx contractapi.TransactionContextInterface, func_name string) (bool, error) {
 	admin_permissions := []string{"Construct_ACL", "Destruct_ACL", "Read_Private_Data", "Write_Private_Data"}
-	patient_permissions := []string{"Grant_ACL", "Revoke_ACL", "Read_Private_Data", "Destroy_Private_Data"}
+	patient_permissions := []string{"Grant_Access_Control", "Revoke_Access_Control", "Read_Private_Data", "Destroy_Private_Data"}
 	attr, exists, err := cid.GetAttributeValue(ctx.GetStub(), "ClientID")
 	if err != nil {
 		return false, fmt.Errorf("<verify_Permission> get attribute value failed: %v", err)
@@ -130,7 +129,7 @@ func verify_Access_Control(ctx contractapi.TransactionContextInterface, key stri
 		return false, fmt.Errorf("<verify_Access_Control> get client mspid failed: %v", err)
 	}
 	hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
-	h_hospital := get_String_Hash(hospital)
+	h_hospital := get_Byte_Hash([]byte(hospital))
 	// get submitter attributes
 	attr, exists, err := cid.GetAttributeValue(ctx.GetStub(), "ClientID")
 	if err != nil {
@@ -154,7 +153,7 @@ func verify_Access_Control(ctx contractapi.TransactionContextInterface, key stri
 	} else {
 		attrs := strings.Split(attr, "_")
 		if attrs[0] == "patient" { // if the user is a patient, then both the hospital and patient hashes must match
-			h_patient := get_String_Hash(attrs[1])
+			h_patient := get_Byte_Hash([]byte(attrs[1]))
 			if string(h_hospital[:]) == string(acl.H_Hospital) && string(h_patient[:]) == string(acl.H_Patient) {
 				return true, nil
 			}

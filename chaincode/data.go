@@ -40,7 +40,7 @@ func (s *Smart_Contract) Write_Private_Data(ctx contractapi.TransactionContextIn
 		return fmt.Errorf("<Write_Private_Data> unmarshal input failed: %v", err)
 	}
 	// check if the submitter is allowed to write to the requested key
-	key := string(get_String_Hash(input.Hospital + "_" + input.Patient + "_" + input.Test))
+	key := get_String_Hash(input.Hospital + "_" + input.Patient + "_" + input.Test)
 	access, err := verify_Access_Control(ctx, key, "w")
 	if err != nil {
 		return fmt.Errorf("<Write_Private_Data> verify access control failed: %v", err)
@@ -114,7 +114,7 @@ func (s *Smart_Contract) Read_Private_Data(ctx contractapi.TransactionContextInt
 		return Record{}, fmt.Errorf("<Read_Private_Data> unmarshal input failed: %v", err)
 	}
 	// check if the submitter is allowed to read from the requested key
-	key := string(get_String_Hash(input.Hospital + "_" + input.Patient + "_" + input.Test))
+	key := get_String_Hash(input.Hospital + "_" + input.Patient + "_" + input.Test)
 	access, err := verify_Access_Control(ctx, key, "r")
 	if err != nil {
 		return Record{}, fmt.Errorf("<Read_Private_Data> verify access control failed: %v", err)
@@ -181,7 +181,7 @@ func (s *Smart_Contract) Destroy_Private_Data(ctx contractapi.TransactionContext
 		return fmt.Errorf("<Destroy_Private_Data> get client mspid failed: %v", err)
 	}
 	hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
-	key := string(get_String_Hash(hospital + "_" + input.Patient + "_" + input.Test))
+	key := get_String_Hash(hospital + "_" + input.Patient + "_" + input.Test)
 	collection := "explicit_" + hospital
 	// check if key exists
 	recordJSON, err := ctx.GetStub().GetPrivateData(collection, key)

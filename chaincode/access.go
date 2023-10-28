@@ -44,7 +44,7 @@ func (s *Smart_Contract) Construct_ACL(ctx contractapi.TransactionContextInterfa
 	}
 	hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
 	// check if acl exists
-	id := string(get_String_Hash(hospital + "_" + patient + "_" + test)[:]) + "_ACL"
+	id := get_String_Hash(hospital+"_"+patient+"_"+test) + "_ACL"
 	aclJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return fmt.Errorf("<Construct_ACL> get state acl failed: %v", err)
@@ -55,8 +55,8 @@ func (s *Smart_Contract) Construct_ACL(ctx contractapi.TransactionContextInterfa
 	// construct the acl
 	var acl Access_Control_List
 	acl.ID = id
-	acl.H_Hospital = get_String_Hash(hospital)
-	acl.H_Patient = get_String_Hash(patient)
+	acl.H_Hospital = get_Byte_Hash([]byte(hospital))
+	acl.H_Patient = get_Byte_Hash([]byte(patient))
 	aclJSON, err = json.Marshal(acl)
 	if err != nil {
 		return fmt.Errorf("<Construct_ACL> marshal acl failed: %v", err)
@@ -65,7 +65,7 @@ func (s *Smart_Contract) Construct_ACL(ctx contractapi.TransactionContextInterfa
 	if err != nil {
 		return fmt.Errorf("<Construct_ACL> put state acl failed: %v", err)
 	}
-	return nil
+	return err
 }
 
 func (s *Smart_Contract) Destruct_ACL(ctx contractapi.TransactionContextInterface) error {
@@ -104,7 +104,7 @@ func (s *Smart_Contract) Destruct_ACL(ctx contractapi.TransactionContextInterfac
 	}
 	hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
 	// check if acl exists
-	id := string(get_String_Hash(hospital + "_" + patient + "_" + test)[:]) + "_ACL"
+	id := get_String_Hash(hospital+"_"+patient+"_"+test) + "_ACL"
 	aclJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return fmt.Errorf("<Destruct_ACL> get state acl failed: %v", err)
@@ -160,7 +160,7 @@ func (s *Smart_Contract) Grant_Access_Control(ctx contractapi.TransactionContext
 	}
 	server_hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
 	// check if acl exists
-	id := string(get_String_Hash(server_hospital + "_" + patient + "_" + test)[:]) + "_ACL"
+	id := get_String_Hash(server_hospital+"_"+patient+"_"+test) + "_ACL"
 	aclJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return fmt.Errorf("<Grant_Access_Control> get state acl failed: %v", err)
@@ -234,7 +234,7 @@ func (s *Smart_Contract) Revoke_Access_Control(ctx contractapi.TransactionContex
 	}
 	server_hospital := "Hospital" + OrgMSP[3:len(OrgMSP)-3]
 	// check if acl exists
-	id := string(get_String_Hash(server_hospital + "_" + patient + "_" + test)[:]) + "_ACL"
+	id := get_String_Hash(server_hospital+"_"+patient+"_"+test) + "_ACL"
 	aclJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
 		return fmt.Errorf("<Revoke_Access_Control> get state acl failed: %v", err)

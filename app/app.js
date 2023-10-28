@@ -4,6 +4,7 @@ import cors from "cors"
 import bodyParser from "body-parser"
 
 // import local dependencies
+import { initGateway } from "./setup.js"
 import { Construct_ACL , Destruct_ACL , Grant_Access_Control , Revoke_Access_Control} from "./access.js"
 import { Read_Private_Data , Write_Private_Data , Destroy_Private_Data } from "./data.js"
 
@@ -28,24 +29,23 @@ function init(params){
     return params
 }
 
-// // The app only supports a POST requst to its home (default) URL
-// app.post("/", async function (req,res){
-//     // setup params
-//     let params = init(req.body)
-//     let response = {
-//         message: "Backend Connected Successfully"
-//     }
-//     res.send(JSON.stringify(response))
-// })
-
 let isLoggedIn = false
 let gateway = null
 let network = false
 let contract = false
+const channelName = "mychannel"
+const chaincodeName = "chaincode"
 
-async function Login(){
+async function Login(params){
     isLoggedIn = true
-    // do initgateway and other network / contract things
+    let org = params["source_org"].toLowerCase()
+    let OrgMSP = params["source_org"] + "MSP"
+    let userID = params["username"]
+
+    gateway = await initGateway(org , OrgMSP , userID)
+    network = await gateway.getNetwork(channelName)
+    contract = await network.getContract(chaincodeName)
+
     let response = {
         message: "Successfully logged in"
     }
@@ -61,13 +61,13 @@ app.post("/", async function (req,res){
 
     // first login
     if(!isLoggedIn){
-        if(params["method"] == "Login") response = await Login()
+        if(params["method"] == "Login") response = await Login(params)
         // else ignore the request
     }
     else{
         switch(params["method"]){
             case "Login":
-                response = await Login()
+                response = await Login(params)
                 break
             case "Construct":
                 response = await Construct_ACL(contract , params)
@@ -91,9 +91,20 @@ app.post("/", async function (req,res){
                 response = await Destroy_Private_Data(contract , params)
                 break
             default:
-                // do nothing (this involves re-logins)
+                // do nothing
         }
     }
     
     res.send(JSON.stringify(response))
 })
+
+
+// // The app only supports a POST requst to its home (default) URL
+// app.post("/", async function (req,res){
+//     // setup params
+//     let params = init(req.body)
+//     let response = {
+//         message: "Backend Connected Successfully"
+//     }
+//     res.send(JSON.stringify(response))
+// })

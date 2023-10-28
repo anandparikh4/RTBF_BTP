@@ -10,6 +10,9 @@ import FabricCAServices from 'fabric-ca-client'
  * @param {*} ccp
  */
 
+const RED = '\x1b[31m\n'
+const GREEN = '\x1b[32m\n'
+const RESET = '\x1b[0m'
 const adminID = "admin"
 const adminPWD = "adminpw"
 
@@ -144,7 +147,9 @@ export async function initGateway(org , OrgMSP , userID){
 	// and stores app user identity in local wallet
 	// In a real application this would be done only when a new user was required to be added
 	// and would be part of an administrative flow
-	await registerAndEnrollUser(caClient, wallet, OrgMSP, userID, org+'.department1')
+	if(userID != "admin"){
+		await registerAndEnrollUser(caClient, wallet, OrgMSP, userID, org+'.department1')
+	}
 
 	try{
 		// Create a new gateway for connecting to Org's peer node.
