@@ -1,9 +1,8 @@
 Mandatory--
 1. Check PurgePrivateData
 2. Implement middle-end
-3. send/recv data to/from middle-end
-4. Simple logging the outputs to the terminal for now
-5. Add shell scripts for automation of launch and kill front-end/middle-end
+3. send/recv data from middle-end to front-end
+4. Add shell scripts for automation of launch and kill front-end/middle-end
 
 For patients, the clientID is patient_<username>_<OrgMSP>
 

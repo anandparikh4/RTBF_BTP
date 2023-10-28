@@ -1,3 +1,4 @@
 /chaincode/vendor/
 /gui/node_modules/
 /app/node_modules/
+/config/wallet/
