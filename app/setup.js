@@ -101,7 +101,7 @@ async function registerAndEnrollUser(caClient, wallet, orgMspId, userId, affilia
 }
 
 function buildCCP(org){
-	const ccpPath = resolve("../../", "test-network", "organizations", "peerOrganizations", org+".example.com", "connection-"+org+".json")		// load the common connection configuration file
+	const ccpPath = resolve("../", "test-network", "organizations", "peerOrganizations", org+".example.com", "connection-"+org+".json")		// load the common connection configuration file
 	const fileExists = existsSync(ccpPath)
 	if(! fileExists){
 		throw new Error(`<buildCCP> no such file or directory: ${ccpPath}`)
@@ -137,7 +137,7 @@ export async function initGateway(org , OrgMSP , userID){
 	const caClient = buildCAClient(FabricCAServices, ccp, 'ca.'+org+'.example.com')
 
 	// setup the wallet to cache the credentials of the application user, on the app server locally
-	const walletPath = join(process.cwd(), '../config/wallet', org)
+	const walletPath = join(process.cwd(), './config/wallet', org)
 	const wallet = await buildWallet(Wallets, walletPath)
 
 	// in a real application this would be done on an administrative flow, and only once

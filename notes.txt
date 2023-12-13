@@ -15,3 +15,64 @@ patient, test, other, manner, result, allergies, blood
 App:
 Alert on errors
 Display the formatted response instead of just logging it into the console
+
+Grant Access Control: Make button disabled
+Display username on each page
+
+Slides:
+1. Title
+    See from report
+2. Blockchains: What and Why?   -   45 sec
+    Explain the basic permissionless blockchains, like Ethererum and Bitcoin
+    What they are, how they function and purpose do they serve
+    Some idea of consensus algorithms (and what is consensus)
+    Inappropriate for enterprise applications
+3. Permissioned V/S Permissionless Blockchains  -   30 sec
+    Enter permissioned blockchains
+    In what domain to use these (trustless decentralization between orgs)
+    (do not trust each other, but do trust a majority: definition of majority depends on level of trust)
+4. Hyperledger Fabric   -   45 sec
+    What is Hyperledger Fabric? (from website)
+    Custom enterprise applications
+    Classical distributed systems protocols used
+    (lots of formal proofs and literature but end goal is that it works faster than permissionless protocols)
+    Some low-level details of HLF imp. because it is fundamentally different from Permissionless blockchain structure
+    The Ledger (world state and blockchain for transitions)
+    Ordering Service which uses consensus for state machine replication
+    CA-certificates (which provide you cryptographic material) and MSP (authentication)
+5. RTBF in EU's GDPR - 15 sec
+    What is the GDPR? (from website)
+    What is RTBF? (the requirements)
+    How it clashes with blockchains: the trade-off between privacy and security
+6. The problem description - 15 sec
+    (from slides)
+7. Initial steps: How to achieve RTBF?
+    Explain we cannot commit data to ledger because:
+    Blockchain not a database. And data once committed cannot be erased
+    So, we store data off-chain in a private repository and commit the hash on-chain
+    <private-data pictures from HLF>
+    Now, we can store data so that others do not know what it is,
+    but others can later verify that it is what you stored by hashing and checking
+8. RTBF Application:
+    For a hospital. Where each patient has test-data (some medical records)
+    <Picture of record structure>
+9. Functionalities:
+    Show Work Flow Picture and explain the diagram simply
+10. How to guarantee this?
+    Access Control Lists:
+        <ACL Structure>
+    ABAC - Attribute-Based-Access-Control;
+        <ABAC Diagram to show permission decisions>
+    Endorsement Policies-
+        Who should run the chaincode? Only the owner Organization's
+        peers can be used for querying all data pertaining to it
+    Hyperledger allows different kinds of ABACs and EPs
+    More details about data-privacy and security in the report
+11. Finally, implementation demo.
+    Show read/write private data.
+    Access private data before granting and revoking access control.
+12. Thank You!
+
+Carry a speech.txt with yourself
+Speak for around 6 mins, demo for 4 mins.
+Shirt + Trousers.
